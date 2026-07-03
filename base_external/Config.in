@@ -1,0 +1,6 @@
+# Config.in
+
+# Include the Config.in for your specific custom packages here.
+# Notice how we use the dynamically generated path variable based 
+# on the name defined in external.desc.
+source "$BR2_EXTERNAL_AESD_PROJECT_PATH/package/aesd-assignments/Config.in"
