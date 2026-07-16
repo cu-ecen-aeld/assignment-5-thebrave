@@ -4,23 +4,30 @@
 	"name": "Alpine",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "cuaesd/aesd-autotest:24-assignment5-buildroot",
-
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/github-cli:1": {
 			"version": "latest"
 		}
 	},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "uname -a",
-
 	// Configure tool-specific properties.
 	// "customizations": {},
-
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	"remoteUser": "autotest-admin"
+	"remoteUser": "autotest-admin",
+	"mounts": [
+		// Bind mount for ccache
+		"source=/home/jean/.buildroot-ccache,target=/home/autotest-admin/.buildroot-ccache,type=bind,consistency=cached",
+		// Bind mount for buildroot downloads
+		"source=/home/jean/.buildroot-dl,target=/home/autotest-admin/.buildroot-dl,type=bind,consistency=cached",
+		// Bind mount for ssh keys
+		"source=/home/jean/.ssh,target=/home/autotest-admin/.ssh,type=bind,consistency=cached"
+	],
+	"containerEnv": {
+		"BR2_CCACHE_DIR": "/home/autotest-admin/.buildroot-ccache",
+		"BR2_DL_DIR": "/home/autotest-admin/.buildroot-dl"
+	}
 }
