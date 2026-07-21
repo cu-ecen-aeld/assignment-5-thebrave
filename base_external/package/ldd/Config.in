@@ -1,0 +1,5 @@
+
+config BR2_PACKAGE_LDD
+	bool "ldd"
+	help
+	  Includes the ldd and scull kernel modules for the assignment 7 onwards

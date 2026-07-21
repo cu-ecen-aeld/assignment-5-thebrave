@@ -1,0 +1,37 @@
+#!/bin/bash -e
+
+# Quick start-stop-daemon example, derived from Debian /etc/init.d/ssh
+
+NAME=ldd
+
+export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
+
+do_start(){
+    /sbin/scull_load
+    /sbin/module_load faulty
+    modprobe hello
+}
+
+do_stop(){
+    /sbin/scull_unload
+    /sbin/module_unload faulty
+    rmmod hello
+}
+
+case "$1" in
+  start)
+        echo -n "Starting daemon: "$NAME
+        do_start
+        echo "."
+        ;;
+  stop)
+        echo -n "Stopping daemon: "$NAME
+        do_stop
+        echo "."
+        ;;
+  *)
+        echo "Usage: "$1" {start|stop}"
+        exit 1
+esac
+
+exit 0
